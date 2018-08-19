@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>RethinkDB | Databases</title>
+    <meta name="description" content="Experience from databases world">
+    
+    
+    <link rel="preload" href="/EXPA--Databases/assets/css/0.styles.cd60c4e6.css" as="style"><link rel="preload" href="/EXPA--Databases/assets/js/app.d400bcae.js" as="script"><link rel="preload" href="/EXPA--Databases/assets/js/10.48a84f97.js" as="script"><link rel="prefetch" href="/EXPA--Databases/assets/js/5.a945c785.js"><link rel="prefetch" href="/EXPA--Databases/assets/js/2.cda51ec0.js"><link rel="prefetch" href="/EXPA--Databases/assets/js/3.5c9a19fb.js"><link rel="prefetch" href="/EXPA--Databases/assets/js/4.55ddc5f1.js"><link rel="prefetch" href="/EXPA--Databases/assets/js/6.90078090.js"><link rel="prefetch" href="/EXPA--Databases/assets/js/7.944334a3.js"><link rel="prefetch" href="/EXPA--Databases/assets/js/8.3382bfbc.js"><link rel="prefetch" href="/EXPA--Databases/assets/js/9.25fa579b.js"><link rel="prefetch" href="/EXPA--Databases/assets/js/11.052a0539.js">
+    <link rel="stylesheet" href="/EXPA--Databases/assets/css/0.styles.cd60c4e6.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/EXPA--Databases/" class="home-link router-link-active"><!----> <span class="site-name">Databases</span></a> <div class="links" style="max-width:nullpx;"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/EXPA--Databases/" class="nav-link">Home</a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/EXPA--Databases/" class="nav-link">Home</a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/EXPA--Databases/mysql.html" class="sidebar-link">MySQL</a></li><li><a href="/EXPA--Databases/mongo.html" class="sidebar-link">Mongodb</a></li><li><a href="/EXPA--Databases/rethink.html" class="active sidebar-link">RethinkDB</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/EXPA--Databases/rethink.html#example-with-node" class="sidebar-link">Example with Node</a></li></ul></li><li><a href="/EXPA--Databases/sqlite.html" class="sidebar-link">Sqlite</a></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>Elastic Search</span> <span class="arrow right"></span></p> <!----></div></li></ul> </div> <div class="page"> <div class="content"><h1 id="rethinkdb"><a href="#rethinkdb" aria-hidden="true" class="header-anchor">#</a> RethinkDB</h1> <h4 id="содержание"><a href="#содержание" aria-hidden="true" class="header-anchor">#</a> Содержание</h4> <ul><li>Example with Node</li></ul> <hr> <h2 id="example-with-node"><a href="#example-with-node" aria-hidden="true" class="header-anchor">#</a> Example with Node</h2> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> r <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'rethinkdbdash'</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+database<span class="token punctuation">:</span> <span class="token string">'mydb'</span><span class="token punctuation">,</span>
+discovery<span class="token punctuation">:</span> <span class="token boolean">true</span>
+<span class="token comment">// timeout: 10, // timeout period in seconds for the connection to be opened (default 20).</span>
+<span class="token comment">// servers: [</span>
+<span class="token comment">// {</span>
+<span class="token comment">// host: 'aws-us-east-1-portal.4.dblayer.com',</span>
+<span class="token comment">// port: 11078</span>
+<span class="token comment">// }</span>
+<span class="token comment">// ]</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">function</span> <span class="token function">Insert</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+r<span class="token punctuation">.</span><span class="token function">table</span><span class="token punctuation">(</span><span class="token string">'users'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+title<span class="token punctuation">:</span> <span class="token string">'Lorem ipsum'</span><span class="token punctuation">,</span>
+content<span class="token punctuation">:</span> <span class="token string">'Dolor sit amet'</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">Get</span> <span class="token punctuation">(</span>table<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token keyword">return</span> r<span class="token punctuation">.</span><span class="token function">table</span><span class="token punctuation">(</span>table<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> data<span class="token punctuation">)</span>
+<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">Insert</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token function">Get</span><span class="token punctuation">(</span><span class="token string">'users'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>users <span class="token operator">=&gt;</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>users<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+</code></pre></div></div> <div class="page-edit"><!----> <!----></div> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/EXPA--Databases/mongo.html" class="prev">
+          Mongodb
+        </a></span> <span class="next"><a href="/EXPA--Databases/sqlite.html">
+          Sqlite
+        </a>
+        →
+      </span></p></div> </div> <!----></div></div>
+    <script src="/EXPA--Databases/assets/js/10.48a84f97.js" defer></script><script src="/EXPA--Databases/assets/js/app.d400bcae.js" defer></script>
+  </body>
+</html>

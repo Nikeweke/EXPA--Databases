@@ -1,7 +1,7 @@
 module.exports = {
   title: 'Databases',
   description: 'Experience from databases world',
-  base: '/EXPA--ElasticSearch/',
+  base: '/EXPA--Databases/',
   dest: '../docs',
 
   themeConfig: {
@@ -11,6 +11,10 @@ module.exports = {
       // { text: 'External', link: 'https://google.com' },
     ],
     sidebar: [
+      '/mysql.md',
+      '/mongo.md',
+      '/rethink.md',
+      '/sqlite.md',
       {
         title: 'Elastic Search',
         collapsable: true,
