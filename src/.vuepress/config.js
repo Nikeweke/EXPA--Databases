@@ -12,18 +12,15 @@ module.exports = {
     ],
     sidebar: [
       '/mysql.md',
-      '/mongo.md',
       '/rethink.md',
       '/sqlite.md',
-      {
-        title: 'Elastic Search',
-        collapsable: true,
-        children: [
-          '/es/introduction.md',
-          '/es/dsl.md',
-          '/es/api.md',
-        ]
-      },
+
+      require('../elastic-search/__index'),
+
+      require('../mongo/__index'),
+     
     ]
   }
 }
+
+

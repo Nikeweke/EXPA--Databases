@@ -6,6 +6,7 @@
     "doc": "docs"
   },
   "scripts": {
+    "dev": "vuepress dev src",
     "docs:push": "cd vuepress && vuepress build && git add -A && git commit -m \"new\" && git push origin master ",
     "push": "git add -A && git commit -m \"new\" && git push origin master"
   },
@@ -19,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/Nikeweke/EXPA--Backend/issues"
   },
-  "homepage": "https://github.com/Nikeweke/EXPA--Backend#readme"
+  "homepage": "https://github.com/Nikeweke/EXPA--Backend#readme",
+  "devDependencies": {
+    "vuepress": "^1.7.1"
+  }
 }
