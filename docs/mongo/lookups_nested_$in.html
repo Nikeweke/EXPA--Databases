@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Lookups - nested &amp; $in | Databases</title>
+    <meta name="generator" content="VuePress 1.7.1">
+    
+    <meta name="description" content="Experience from databases world">
+    
+    <link rel="preload" href="/EXPA--Databases/assets/css/0.styles.0e258cad.css" as="style"><link rel="preload" href="/EXPA--Databases/assets/js/app.c0b08c26.js" as="script"><link rel="preload" href="/EXPA--Databases/assets/js/2.0b544df9.js" as="script"><link rel="preload" href="/EXPA--Databases/assets/js/11.fda9511a.js" as="script"><link rel="prefetch" href="/EXPA--Databases/assets/js/10.02c8032a.js"><link rel="prefetch" href="/EXPA--Databases/assets/js/12.40d08dcb.js"><link rel="prefetch" href="/EXPA--Databases/assets/js/13.23f47844.js"><link rel="prefetch" href="/EXPA--Databases/assets/js/14.b13bbdb0.js"><link rel="prefetch" href="/EXPA--Databases/assets/js/15.3a7fe565.js"><link rel="prefetch" href="/EXPA--Databases/assets/js/3.6c8dd952.js"><link rel="prefetch" href="/EXPA--Databases/assets/js/4.8dcece8a.js"><link rel="prefetch" href="/EXPA--Databases/assets/js/5.50dc4e4e.js"><link rel="prefetch" href="/EXPA--Databases/assets/js/6.4a50ca76.js"><link rel="prefetch" href="/EXPA--Databases/assets/js/7.46eca1db.js"><link rel="prefetch" href="/EXPA--Databases/assets/js/8.4c77b549.js"><link rel="prefetch" href="/EXPA--Databases/assets/js/9.91c820e9.js">
+    <link rel="stylesheet" href="/EXPA--Databases/assets/css/0.styles.0e258cad.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/EXPA--Databases/" class="home-link router-link-active"><!----> <span class="site-name">Databases</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/EXPA--Databases/" class="nav-link">
+  Home
+</a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/EXPA--Databases/" class="nav-link">
+  Home
+</a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/EXPA--Databases/mysql.html" class="sidebar-link">MySQL</a></li><li><a href="/EXPA--Databases/rethink.html" class="sidebar-link">RethinkDB</a></li><li><a href="/EXPA--Databases/sqlite.html" class="sidebar-link">Sqlite</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Elastic Search</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Mongo</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/EXPA--Databases/mongo/intro.html" class="sidebar-link">Mongodb</a></li><li><a href="/EXPA--Databases/mongo/lookups_nested_$in.html" aria-current="page" class="active sidebar-link">Lookups - nested &amp; $in</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="lookups-nested-in"><a href="#lookups-nested-in" class="header-anchor">#</a> Lookups - nested &amp; $in</h1> <p>Let we have concert with nested ticketIds, and we wanna fill in array of tickets with its data then we need use $lookup</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// Concert here is mongoose model</span>
+<span class="token keyword">return</span> Concert
+  <span class="token punctuation">.</span><span class="token function">aggregate</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+    <span class="token punctuation">{</span> $match<span class="token operator">:</span> <span class="token punctuation">{</span>channel<span class="token operator">:</span> <span class="token function">ObjectId</span><span class="token punctuation">(</span>channelId<span class="token punctuation">)</span><span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    
+    <span class="token punctuation">{</span>
+      $lookup<span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token keyword">from</span><span class="token operator">:</span> <span class="token string">'tickets'</span><span class="token punctuation">,</span>
+        <span class="token keyword">as</span><span class="token operator">:</span> 'tickets<span class="token punctuation">,</span>
+        <span class="token keyword">let</span><span class="token operator">:</span> <span class="token punctuation">{</span> ticketIds<span class="token operator">:</span> <span class="token string">&quot;$tickets&quot;</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+        pipeline<span class="token operator">:</span> <span class="token punctuation">[</span>
+          <span class="token punctuation">{</span> $match<span class="token operator">:</span> <span class="token punctuation">{</span>$expr<span class="token operator">:</span> <span class="token punctuation">{</span> $<span class="token keyword">in</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'$_id'</span><span class="token punctuation">,</span> <span class="token string">'$$ticketIds'</span><span class="token punctuation">]</span>  <span class="token punctuation">}</span><span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        
+          <span class="token comment">// price</span>
+          <span class="token punctuation">{</span>
+            $lookup<span class="token operator">:</span> <span class="token punctuation">{</span>
+              <span class="token keyword">from</span><span class="token operator">:</span> <span class="token string">'components_global_prices'</span><span class="token punctuation">,</span>
+              localField<span class="token operator">:</span> <span class="token string">'price.ref'</span><span class="token punctuation">,</span>
+              foreignField<span class="token operator">:</span> <span class="token string">'_id'</span><span class="token punctuation">,</span>
+              <span class="token keyword">as</span><span class="token operator">:</span> <span class="token string">'price'</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+    <span class="token punctuation">{</span> $project <span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token operator">...</span>excludeFields<span class="token punctuation">,</span> tickets<span class="token operator">:</span> excludeFields <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">]</span><span class="token punctuation">)</span>  
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/EXPA--Databases/mongo/intro.html" class="prev">
+        Mongodb
+      </a></span> <!----></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/EXPA--Databases/assets/js/app.c0b08c26.js" defer></script><script src="/EXPA--Databases/assets/js/2.0b544df9.js" defer></script><script src="/EXPA--Databases/assets/js/11.fda9511a.js" defer></script>
+  </body>
+</html>

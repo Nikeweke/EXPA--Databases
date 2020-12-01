@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "vuepress dev src",
-    "docs:push": "cd vuepress && vuepress build && git add -A && git commit -m \"new\" && git push origin master ",
+    "docs:push": "cd src && vuepress build && git add -A && git commit -m \"new\" && git push origin master ",
     "push": "git add -A && git commit -m \"new\" && git push origin master"
   },
   "repository": {
